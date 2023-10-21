@@ -1,7 +1,22 @@
 const express = require('express')
 const cors =require('cors')
+// require('./db/mongoose')
+require('../db/mongoose')
+require('../utilities/loadEnv')
+
+const adminRoute = require('../routes/admin.route')
+const subAdminRoute = require('../routes/subAdmin.route')
+const imageRoute = require('../routes/image.route')
+const movieRoute =require('../routes/movie.route')
+const sliderRoute =require('../routes/slider.route')
+const screenRouter =require('../routes/screen.route')
+const showsRouter =require('../routes/shows.route')
+const userRoute =require('../routes/user.router')
+const Admin = require('../models/admin')
+// const Admin = require('../models/admin')
 const app = express()
 app.use(cors())
+app.use(express.json())
 const port =process.env.PORT || 5000
 app.get('/',(req,res)=>{
     const imges = [
@@ -71,6 +86,15 @@ app.get('/slider',(req,res)=>{
     ]
     res.send({today,tomorrow})
 })
+app.use('/api/auth/admin',adminRoute)
+app.use('/api/auth/subadmin',subAdminRoute)
+app.use('/api/auth/user',userRoute)
+app.use('/api/image',imageRoute)
+app.use('/api/movie',movieRoute)
+app.use('/api/screen',screenRouter)
+app.use('/api/shows',showsRouter)
+app.use('/api/slider',sliderRoute)
+
 app.listen(port,()=>{
     console.log(`listenign on port ${port}`)
 })
