@@ -11,7 +11,6 @@ const addScreen =async(req,res)=>{
 const getScreen =async(req,res)=>{
     const ress =await Screen.find({email:req.admin.email})
     res.send(ress)
-    // console.log(ress,"response form screen controller")
 
 }
 module.exports={addScreen,getScreen}

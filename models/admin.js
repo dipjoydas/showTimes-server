@@ -26,6 +26,9 @@ const adminSchema = new Schema({
         type:String,
         default:"admin"
     },
+    location:{
+        type:String
+    },
     
      tokens: [{
         token: {

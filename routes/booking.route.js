@@ -1,0 +1,12 @@
+const express = require('express')
+const router = express.Router()
+const auth =require('../middleware/auth')
+const {lockseat,bookseat,checkeIsLocked,unlock,lockedForPayment,tempoTicket,getTickets}=require('../controller/booking.controller')
+router.post('/lockseat',auth,lockseat)
+router.post('/bookseat/:id',auth,bookseat)
+router.post('/tempoticket/:id',auth,tempoTicket)
+router.get('/checkislocked/:id/:index',auth,checkeIsLocked)
+router.post('/unlock/:id',auth,unlock)
+router.post('/lockforpayment/:id',auth,lockedForPayment)
+router.get('/tickets/get',auth,getTickets)
+module.exports =router

@@ -19,12 +19,13 @@ const getadmin =(req,res)=>{
 
 }
 const addUser =async (req,res)=>{
-    const {email,password,role}=req.body
+    const {email,password,role,location}=req.body
     try{
         const admin = new Admin({
             email,
             password,
-            role
+            role,
+            location
         
            })
            await admin.save()
@@ -56,34 +57,19 @@ const changePassword =async (req,res)=>{
     }
 
 }
-// router.post('/changepassword',auth,async(req,res)=>{
-//     const {currentPassword,newPassword} = req.body
-//     // const user = req.user
-//     try{
-//         const email = req.user.email 
-//     const user = await User.findByCredentials(email, currentPassword)
-//     user.password = newPassword
-//     await user.save()
-//     res.send({result:"password change successfully"})
+const getLocation =async (req,res)=>{
+    try{
+        const ress = await Admin.find({}).skip(1).select('location')
+     
+        res.send(ress)
 
-//     }catch(e){
-//         res.status(400).send({result:"unabe to change password"})
-//     }
-    
+    }catch(e){
+        console.log(e)
+        
+
+    }
+}
 
 
-// })
+module.exports = {logIn,getadmin,addUser,changePassword,getLocation}
 
-module.exports = {logIn,getadmin,addUser,changePassword}
-
-
-// app.get('/admindefault',async(req,res)=>{
-   
-//     const admin = new Admin({
-//      email:"dipjoy488@gmail.com",
-//      password:"1234567"
-//     })
-//     await admin.save()
- 
-//      res.send(admin)
-//  })

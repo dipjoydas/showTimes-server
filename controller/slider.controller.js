@@ -1,6 +1,10 @@
 const Shows = require('../models/shows')
+const Admin =require('../models/admin')
 const getSlider = async (req, res) => {
-    console.log("workd form slider controllers")
+    const {theaterlocation} =req.params
+
+    const email = await Admin.findOne({location:theaterlocation}).select('email')
+
     const todayDate = new Date();
 
     todayDate.setHours(0, 0, 0, 0);
@@ -9,6 +13,8 @@ const getSlider = async (req, res) => {
     tomorrowDate.setHours(0, 0, 0, 0);
 
     const todayShows = await Shows.find({
+       email:email.email,
+        
         date: {
             // $gte: previousDay,
             $gte: todayDate,
@@ -19,41 +25,7 @@ const getSlider = async (req, res) => {
     for(let i of todayShows){
         await i.populate('movieId')
     }
-    // const todayMovie  =[]
-    // today.map((show,index)=>{
-    //     const movieContainer ={}
-    //     if(index == 0){
-    //         movieContainer.session = [show.showTime]
-    //         movieContainer.number =show.movieId.serialNumber
-    //         movieContainer.name =show.movieId.movieName
-    //         movieContainer.category =show.movieId.categories
-    //         movieContainer.img=show.movieId.img
-    //         movieContainer._id =show.movieId._id
-    //         todayMovie.push(movieContainer)
 
-    //     }else{
-    //         const isMatch =[]
-    //         todayMovie.map((movie,index)=>{
-    //             if(show.movieId._id.equals(movie._id)){
-    //                 movie.session =[...movie.session,show.showTime]
-    //             }else{
-    //                 isMatch.push(1)
-    //                 if(todayMovie.length==isMatch.length){
-    //                     movieContainer.session = [show.showTime]
-    //                     movieContainer.number =show.movieId.serialNumber
-    //                     movieContainer.name =show.movieId.movieName
-    //                     movieContainer.category =show.movieId.categories
-    //                     movieContainer.img=show.movieId.img
-    //                     movieContainer._id =show.movieId._id
-    //                     todayMovie.push(movieContainer)
-    //                 }
-
-    //             }
-
-    //     })
-
-    //     }
-    // })
    
     const tomorrowShows = await Shows.find({
         date: {

@@ -1,7 +1,8 @@
 const Movie =require('../models/movies')
 const mongoose =require('mongoose')
+const Admin =require('../models/admin')
 const addMovie = async(req,res)=>{
-  // console.log()
+
     const movie = new Movie({...req.body,email:req.admin.email})
   const ress = await movie.save()
   
@@ -9,6 +10,13 @@ const addMovie = async(req,res)=>{
 }
 const getMovie = async (req,res)=>{
   const ress = await Movie.find({email:req.admin.email})
+  res.send(ress)
+}
+const getAllMovie =async (req,res)=>{
+  const {theaterlocation} =req.params
+ 
+  const email = await Admin.findOne({location:theaterlocation}).select('email')
+  const ress =await Movie.find({email:email.email})
   res.send(ress)
 }
 const getMovieByDay = async (req,res)=>{
@@ -23,9 +31,17 @@ const getMovieWithShows =async (req,res)=>{
 
   const ress =await Movie.findById(req.params.id)
  await ress.populate('shows')
- console.log(ress.shows)
+
   res.send({movie:ress,shows:ress.shows})
 
 
 }
-module.exports ={addMovie,getMovie,getMovieByDay,getMovieWithShows}
+const getMovieByName =async(req,res)=>{
+  const {theaterlocation} =req.params
+  const searchValue = req.query.search
+  const email = await Admin.findOne({location:theaterlocation}).select('email')
+  const movies = await Movie.find({ email:email.email,$text:{$search: searchValue}})
+  res.send(movies)
+}
+
+module.exports ={addMovie,getMovie,getMovieByDay,getMovieWithShows,getMovieByName,getAllMovie}
