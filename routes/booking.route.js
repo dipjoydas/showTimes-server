@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors')
+router.use(cors())
 const auth =require('../middleware/auth')
 const {lockseat,bookseat,checkeIsLocked,unlock,lockedForPayment,tempoTicket,getTickets}=require('../controller/booking.controller')
 router.post('/lockseat',auth,lockseat)

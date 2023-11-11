@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const cors = require('cors')
+router.use(cors())
 const {getUser,signUp,verifyEmail,logIn,logOut,emailCheck,resendOtp}=require('../controller/user.controller')
 const auth =require('../middleware/auth')
 router.get('/get',auth,getUser)
