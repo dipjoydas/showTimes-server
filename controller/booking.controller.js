@@ -105,7 +105,7 @@ const tempoTicket =async (req,res)=>{
     selectedSeats.map((seat,index)=>{
         totalTicketPrice+=Number(seat.ticketPrice)
     })
-    const ticket = {name:req.user.name,email:req.user.email,price:totalTicketPrice,tickets:selectedSeats, expiresAt: new Date(Date.now() + (60 * 10 * 1000))}
+    const ticket = {name:req.user.name,email:req.user.email,price:totalTicketPrice,tickets:selectedSeats, expiresAt: new Date(Date.now() + (60 * 2 * 1000))}
     
     const tempoTickets =new TempoTickets(ticket)
     const storedTempoTicketsInfo = await tempoTickets.save()
