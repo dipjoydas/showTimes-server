@@ -88,15 +88,10 @@ const port =process.env.PORT || 5000
 //     ]
 //     res.send({today,tomorrow})
 // })
-app.get('/admindefault',async(req,res)=>{
-   const admin = new Admin({
-    email:"dipjoy488@gmail.com",
-    password:"1234567"
-   })
-   await admin.save()
-
-    res.send(admin)
+app.get('/',(req,res)=>{
+    res.send('works')
 })
+
 app.use('/api/auth/admin',adminRoute)
 app.use('/api/auth/subadmin',subAdminRoute)
 app.use('/api/auth/user',userRoute)
