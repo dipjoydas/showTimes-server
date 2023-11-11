@@ -1,5 +1,5 @@
 const express = require('express')
-const {logIn,getadmin,addUser,changePassword,getLocation} = require('../controller/admin.controller')
+const {logIn,getadmin,addUser,changePassword,getLocation,logOut} = require('../controller/admin.controller')
 const {uploadImage,upload} =require('../controller/uploadImage')
 // const getadmin = require('../controller/admin.controller')
 const adminAuth =require('../middleware/adminAuth')
@@ -12,4 +12,5 @@ router.post('/changeadminpassword',adminAuth,changePassword)
 router.get('/getadmin',adminAuth,getadmin)
 router.get('/getlocation',getLocation)
 router.post('/adduser',adminAuth,addUser)
+router.get('/logout',adminAuth,logOut)
 module.exports = router

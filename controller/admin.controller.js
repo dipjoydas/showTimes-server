@@ -12,6 +12,19 @@ const logIn =async(req,res)=>{
     }
 
 }
+const logOut =async (req,res)=>{
+    try {
+        req.admin.tokens = req.admin.tokens.filter((token) => {
+            return token.token !== req.token
+        })
+        await req.admin.save()
+
+        res.send({ result: "success" })
+    } catch (e) {
+        res.status(500).send()
+    }
+
+}
 
 const getadmin =(req,res)=>{
     const admin = req.admin
@@ -71,5 +84,5 @@ const getLocation =async (req,res)=>{
 }
 
 
-module.exports = {logIn,getadmin,addUser,changePassword,getLocation}
+module.exports = {logIn,getadmin,addUser,changePassword,getLocation,logOut}
 
