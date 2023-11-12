@@ -3,6 +3,7 @@ const cors =require('cors')
 // require('./db/mongoose')
 require('../db/mongoose')
 require('../utilities/loadEnv')
+process.env.TZ = 'Asia/Dhaka';
 
 const adminRoute = require('../routes/admin.route')
 const subAdminRoute = require('../routes/subAdmin.route')
