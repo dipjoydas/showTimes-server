@@ -28,6 +28,8 @@ const getSlider = async (req, res) => {
 
    
     const tomorrowShows = await Shows.find({
+        email:email.email,
+
         date: {
             $gte: tomorrowDate,
             $lt: new Date(tomorrowDate.getTime() + 24 * 60 * 60 * 1000)
